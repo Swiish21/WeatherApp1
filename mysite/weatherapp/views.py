@@ -1,6 +1,8 @@
 import urllib.request
 import json
 from django.shortcuts import render
+from .forms import MemberForm
+from .models import Member
 # Create your views here.
 
 
@@ -28,3 +30,17 @@ def index(request):
         data = {}
 
     return render(request, "main/index.html", data)
+
+def addMember(request):
+    if request.method == 'POST':
+        form = MemberForm(request.POST)
+        if form.is_valid():
+            form.save() #save to database
+            return render(request, 'main/index.html') #redirect to succcess page after saving
+    else:
+        form = MemberForm()
+         
+    return render(request, 'main/addMember.html', {'form': form})
+
+def members_list(request):
+    
