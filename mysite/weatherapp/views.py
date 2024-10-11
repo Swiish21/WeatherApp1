@@ -43,4 +43,6 @@ def addMember(request):
     return render(request, 'main/addMember.html', {'form': form})
 
 def members_list(request):
+    members = Member.objects.all()  # Fetch all members from the database
+    return render(request, 'main/membersList.html', {'members': members})
     
